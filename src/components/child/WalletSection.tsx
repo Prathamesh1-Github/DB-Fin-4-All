@@ -60,7 +60,7 @@ export function WalletSection({ balance }: WalletSectionProps) {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Available</p>
+                <p className="text-sm text-gray-600">Available Limit</p>
                 <p className="text-xl font-bold text-green-600">₹{walletLimit - balance}</p>
               </div>
               <Target className="h-8 w-8 text-green-600" />
