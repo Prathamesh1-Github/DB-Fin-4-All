@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -30,6 +30,10 @@ export function ChildDashboard({ balance, setBalance }: ChildDashboardProps) {
   // const [balance, setBalance] = useState(1250);
   const [savings, setSavings] = useState(750);
   const [totalEarned, setTotalEarned] = useState(125);
+
+  useEffect(() => {
+    setTotalEarned(125)
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 w-screen">

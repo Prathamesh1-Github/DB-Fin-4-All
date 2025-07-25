@@ -66,7 +66,7 @@
 
 
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { ChildDashboard } from '@/components/ChildDashboard';
 import { ParentDashboard } from '@/components/ParentDashboard';
