@@ -82,7 +82,7 @@ function App() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4 w-screen">
         <Card className="p-8 max-w-md w-full text-center space-y-6">
-          <h1 className="text-3xl font-bold text-gray-900">MoneyWise Kids</h1>
+          <h1 className="text-3xl font-bold text-gray-900">DB Teen Wallet</h1>
           <p className="text-gray-600">Learn, Save, and Grow with Money!</p>
 
           <div className="space-y-4">
