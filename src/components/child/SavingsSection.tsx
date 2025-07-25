@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  PiggyBank, 
-  Target, 
+import {
+  PiggyBank,
+  Target,
   Plus,
   Minus,
   Trophy,
@@ -22,13 +22,25 @@ interface SavingsSectionProps {
   setBalance: (balance: number) => void;
 }
 
+interface SavingsGoal {
+  id: number;
+  name: string;
+  target: number;
+  saved: number;
+  deadline: string;
+}
+
 export function SavingsSection({ savings, setSavings, balance, setBalance }: SavingsSectionProps) {
   const [transferAmount, setTransferAmount] = useState('');
-  const [savingsGoals, setSavingsGoals] = useState([
-    { id: 1, name: 'New Bicycle', target: 5000, saved: 2500, deadline: '2024-06-01' },
-    { id: 2, name: 'Gaming Console', target: 15000, saved: 8000, deadline: '2024-12-01' },
-    { id: 3, name: 'Birthday Party', target: 2000, saved: 1200, deadline: '2024-03-15' },
-  ]);
+  const [savingsGoals, setSavingsGoals] = useState<SavingsGoal[]>([]);
+
+  useEffect(() => {
+    setSavingsGoals([
+      { id: 1, name: 'New Bicycle', target: 5000, saved: 2500, deadline: '2024-06-01' },
+      { id: 2, name: 'Gaming Console', target: 15000, saved: 8000, deadline: '2024-12-01' },
+      { id: 3, name: 'Birthday Party', target: 2000, saved: 1200, deadline: '2024-03-15' },
+    ]);
+  }, []);
 
   const { toast } = useToast();
 
@@ -55,7 +67,7 @@ export function SavingsSection({ savings, setSavings, balance, setBalance }: Sav
     setBalance(balance - amount);
     setSavings(savings + amount);
     setTransferAmount('');
-    
+
     toast({
       title: "Money Saved! 🎉",
       description: `₹${amount} moved to your savings account.`,
@@ -94,7 +106,7 @@ export function SavingsSection({ savings, setSavings, balance, setBalance }: Sav
     setSavings(savings - amount);
     setBalance(balance + amount);
     setTransferAmount('');
-    
+
     toast({
       title: "Money Withdrawn",
       description: `₹${amount} moved from savings to wallet.`,
@@ -179,7 +191,7 @@ export function SavingsSection({ savings, setSavings, balance, setBalance }: Sav
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button 
+            <Button
               onClick={moveToSavings}
               className="flex items-center"
               disabled={!transferAmount || Number(transferAmount) > balance}
@@ -187,7 +199,7 @@ export function SavingsSection({ savings, setSavings, balance, setBalance }: Sav
               <Plus className="w-4 h-4 mr-2" />
               Save Money
             </Button>
-            <Button 
+            <Button
               variant="outline"
               onClick={moveToWallet}
               className="flex items-center"
@@ -236,7 +248,7 @@ export function SavingsSection({ savings, setSavings, balance, setBalance }: Sav
             {savingsGoals.map((goal) => {
               const progress = (goal.saved / goal.target) * 100;
               const daysLeft = Math.ceil((new Date(goal.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-              
+
               return (
                 <div key={goal.id} className="p-4 border rounded-lg">
                   <div className="flex items-center justify-between mb-3">
@@ -270,9 +282,9 @@ export function SavingsSection({ savings, setSavings, balance, setBalance }: Sav
               </div>
               <Trophy className="h-8 w-8 text-blue-600" />
             </div>
-            <Progress 
-              value={(totalGoalSaved / totalGoalTarget) * 100} 
-              className="mt-2 h-2" 
+            <Progress
+              value={(totalGoalSaved / totalGoalTarget) * 100}
+              className="mt-2 h-2"
             />
           </div>
         </CardContent>
